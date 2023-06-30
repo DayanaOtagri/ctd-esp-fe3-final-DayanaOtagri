@@ -1,6 +1,5 @@
 import { Box, Grid, Stack } from '@mui/material'
 import CheckoutCard from 'dh-marvel/components/Card/CheckoutCard'
-// import Stepper from 'dh-marvel/components/Form/Stepper'
 import BodySingle from 'dh-marvel/components/layouts/body/single/body-single'
 import LayoutCheckout from 'dh-marvel/components/layouts/layout-checkout'
 import { getComic } from 'dh-marvel/services/marvel/marvel.service'
@@ -42,12 +41,7 @@ function Checkout() {
                 image={`${comicData?.thumbnail?.path}.${comicData?.thumbnail?.extension}`}
                 price={comicData?.price}
                 id={comicData?.id}
-              />
-            {/*<Stepper
-                title={comicData?.title}
-                image={`${comicData?.images[0]?.path}.${comicData?.images[0]?.extension}`}
-                price={comicData?.price}
-              /> */}  
+              /> 
             </Stack>
           </Box>
         </BodySingle>

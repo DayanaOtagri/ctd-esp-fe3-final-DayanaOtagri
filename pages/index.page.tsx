@@ -11,15 +11,19 @@ const INITIAL_OFFSET = 0
 const INITIAL_LIMIT = 12
 
 export async function getServerSideProps() {
-    const response = await getComics(INITIAL_OFFSET, INITIAL_LIMIT)
+    const response = await getComics(INITIAL_OFFSET, INITIAL_LIMIT);
+    const initialComics = response?.data?.results || [];
+    const limit = response?.data?.count ?? null;
+    const initialTotal = response?.data?.total ?? null;
+    
     return {
-        props: {
-            initialComics: response.data.results,
-            limit: response.data.count,
-            initialTotal: response.data.total
-        },
+      props: {
+        initialComics,
+        limit,
+        initialTotal
+      }
     };
-}
+  }
 
 type indexProps = {
     initialComics: any;
@@ -36,9 +40,6 @@ const Index: NextPage<indexProps> = ({ initialComics, initialTotal }) => {
         setPage(value);
     };
 
-    async function deleteCookie() {
-        await fetch(`/api/cookie`)
-    }
 
     useEffect(() => {
         let offset = LIMIT * (page - 1)
@@ -47,18 +48,17 @@ const Index: NextPage<indexProps> = ({ initialComics, initialTotal }) => {
             settotal(response?.data?.total)
         })
 
-        deleteCookie()
         localStorage.clear();
     }, [page])
 
     return (
         <>
             <Head>
-                <title>Inicio |DAYANA OTAGRI</title>
+                <title>Inicio | DH MARVEL</title>
                 <meta name="description" content="Marvel Store Sitio Web" />
             </Head>
             <LayoutGeneral>
-                <BodySingle title={"¡Bienvenidx a Marvel Store!"}>
+                <BodySingle title={"¡Hola disfruta Marvel Store!"}>
                     <PaginationOutlined count={Math.round(total / 12)} page={page} handleChange={handleChange} />
                     <ResponsiveGrid data={comics} />
                     <PaginationOutlined count={Math.round(total / 12)} page={page} handleChange={handleChange} />
