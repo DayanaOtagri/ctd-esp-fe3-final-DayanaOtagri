@@ -1,6 +1,6 @@
 import {generateAuthenticationString} from "dh-marvel/services/marvel/marvel-auth.service";
 
-const MARVEL_API_URL = process.env.MARVEL_API_URL;
+const MARVEL_API_URL = process.env.NEXT_PUBLIC_MARVEL_API_URL;
 
 const fetchApi = async (endpoint: string, urlParams?: string) => {
     const authString = generateAuthenticationString();
@@ -34,9 +34,19 @@ export const getComic = async (comicId: number) => {
     } else return null;
 }
 
+export const getCharacters = async () => {
+    const data = await fetchApi(`characters`);
+    return data.data.results;
+}
+
 export const getCharacter = async (characterId: number) => {
     const data = await fetchApi(`characters/${characterId}`);
     const results = data.data.results;
     if (results.length > 0) return results[0];
     else return null;
+}
+
+export const getCharacterByComic = async (comicId: number) => {
+    const data = await fetchApi(`comics/${comicId}/characters`);
+    return data.data.results;
 }

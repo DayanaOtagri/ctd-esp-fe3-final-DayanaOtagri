@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Link from 'next/link';
-import CharactersAccordion from '../Accordions/CharactersAccordion';
+import CharactersAccordion from '../Accordions/AccordionsCharacters';
 
 export interface PropsCardComic {
     title: string,
