@@ -1,11 +1,11 @@
 import { Box } from '@mui/material';
 import CharacterCard from 'dh-marvel/components/Card/CharacterCard';
 import BodySingle from 'dh-marvel/components/layouts/body/single/body-single';
-import LayoutGeneral from 'dh-marvel/components/layouts/layout-general'
+import LayoutGeneral from 'dh-marvel/components/layouts/layout-general';
 import { getCharacter, getCharacters } from 'dh-marvel/services/marvel/marvel.service';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
-import React from 'react'
+import React from 'react';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data: any = await getCharacters();
@@ -55,5 +55,4 @@ function CharacterDetails({ character }: { character: any }) {
   )
 }
 
-export default CharacterDetails
-
+export default CharacterDetails;

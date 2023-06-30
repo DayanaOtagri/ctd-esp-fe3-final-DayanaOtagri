@@ -36,12 +36,14 @@ function Checkout() {
               spacing={{ xs: 5, sm: 8, md: 8, xl: 20 }}
               alignItems={'center'}
             >
-              <CheckoutCard
-                title={comicData?.title}
-                image={`${comicData?.thumbnail?.path}.${comicData?.thumbnail?.extension}`}
-                price={comicData?.price}
-                id={comicData?.id}
-              /> 
+              {comicData && (
+                <CheckoutCard
+                  title={comicData.title}
+                  image={`${comicData.thumbnail.path}.${comicData.thumbnail.extension}`}
+                  price={comicData.price}
+                  id={comicData.id}
+                />
+              )}
             </Stack>
           </Box>
         </BodySingle>
@@ -50,4 +52,4 @@ function Checkout() {
   )
 }
 
-export default Checkout
+export default Checkout;

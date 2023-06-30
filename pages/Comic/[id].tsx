@@ -7,7 +7,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await getComics()
+  const response = await getComics();
 
   const paths = response.data.results.map(({ id }: { id: any }) => ({
     params: {
@@ -18,13 +18,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths,
     fallback: 'blocking' 
-  }
+  };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const id = parseInt(params?.id as string)
-  const comic = await getComic(id)
-  const characters = await getCharacterByComic(id)
+  const id = parseInt(params?.id as string);
+  const comic = await getComic(id);
+  const characters = await getCharacterByComic(id);
 
   return {
     props: {
@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       characters
     },
     revalidate: 10,
-  }
+  };
 };
 
 function ComicDetails({ comic, characters }: { comic: any, characters: any }) {
@@ -59,7 +59,7 @@ function ComicDetails({ comic, characters }: { comic: any, characters: any }) {
         </Box>
       </LayoutGeneral>
     </>
-  )
+  );
 }
 
-export default ComicDetails
+export default ComicDetails;
