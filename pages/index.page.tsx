@@ -4,7 +4,7 @@ import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { getComics } from 'dh-marvel/services/marvel/marvel.service';
 import { useEffect, useState } from 'react';
 import ResponsiveGrid from 'dh-marvel/components/Grid/Grid';
-import PaginationOutlined from 'dh-marvel/components/Pagination/Pagination';
+import ComicsPagination from 'dh-marvel/components/Pagination/paginations';
 import LayoutGeneral from 'dh-marvel/components/layouts/layout-general';
 
 const INITIAL_OFFSET = 0;
@@ -25,30 +25,30 @@ export async function getServerSideProps() {
   };
 }
 
-type indexProps = {
+type IndexProps = {
   initialComics: any;
   initialTotal: number;
 }
 
-const Index: NextPage<indexProps> = ({ initialComics, initialTotal }) => {
+const Index: NextPage<IndexProps> = ({ initialComics, initialTotal }) => {
   const [comics, setComics] = useState(initialComics);
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(initialTotal);
   const LIMIT = 12;
 
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
+  const handlePagination = (page: number) => {
+    setCurrentPage(page);
   };
 
   useEffect(() => {
-    let offset = LIMIT * (page - 1);
+    const offset = LIMIT * (currentPage - 1);
     getComics(offset, LIMIT).then(response => {
       setComics(response?.data?.results);
       setTotal(response?.data?.total);
     });
 
     localStorage.clear();
-  }, [page]);
+  }, [currentPage]);
 
   return (
     <>
@@ -58,9 +58,9 @@ const Index: NextPage<indexProps> = ({ initialComics, initialTotal }) => {
       </Head>
       <LayoutGeneral>
         <BodySingle title={"¡Hola disfruta Marvel Store!"}>
-          <PaginationOutlined count={Math.ceil(total / LIMIT)} page={page} handleChange={handleChange} />
+          <ComicsPagination numberOfPages={Math.ceil(total / LIMIT)} setCurrentPage={handlePagination} />
           <ResponsiveGrid data={comics} />
-          <PaginationOutlined count={Math.ceil(total / LIMIT)} page={page} handleChange={handleChange} />
+          <ComicsPagination numberOfPages={Math.ceil(total / LIMIT)} setCurrentPage={handlePagination} />
         </BodySingle>
       </LayoutGeneral>
     </>
@@ -68,8 +68,3 @@ const Index: NextPage<indexProps> = ({ initialComics, initialTotal }) => {
 }
 
 export default Index;
-
-
-console.log(process.env.MARVEL_API_URL);
-console.log(process.env.MARVEL_API_PUBLIC_KEY);
-console.log(process.env.MARVEL_API_PRIVATE_KEY);
