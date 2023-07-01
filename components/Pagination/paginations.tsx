@@ -1,12 +1,12 @@
 import { Pagination, Stack } from "@mui/material";
 import React, { ChangeEvent, FC,memo, useState } from "react";
 
-interface ComicsPaginationProps {
+interface PropsComicsPagination {
   numberOfPages: number;
   setCurrentPage: (page: number) => void;
 }
 
-const ComicsPagination: FC<ComicsPaginationProps> = ({
+const ComicsPagination: FC<PropsComicsPagination> = ({
   numberOfPages,
   setCurrentPage,
 }) => {
