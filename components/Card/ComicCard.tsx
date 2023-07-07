@@ -7,22 +7,22 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Link from 'next/link';
-import CharactersAccordion from '../Accordions/AccordionsCharacters';
+import AccordionsCharacters from '../Accordions/AccordionsCharacters';
 
-export interface PropsCardComic {
+export interface ComicCardProps {
     title: string,
     description: string,
     image: string,
     id: number,
     price: number,
-    oldPrice: number
-    stock: number
+    oldPrice: number,
+    stock: number,
     characters: any
 }
 
-export default function ComicCard({ title, description, image, price, id, oldPrice, stock, characters }: PropsCardComic) {
+export default function ComicCard({ title, description, image, id, price, oldPrice, stock, characters }: ComicCardProps) {
     return (
-        <Card sx={{ width: 400  }}>
+        <Card sx={{ width: 400 }}>
             <CardMedia
                 sx={{ height: 350 }}
                 image={image}
@@ -43,25 +43,23 @@ export default function ComicCard({ title, description, image, price, id, oldPri
                     }
                 </Typography>
             </CardContent>
-            <CardActions>
-                {stock > 0
-                    ?
-                    <Link href={{ pathname: "/checkout/", query: `comic=${id}` }} >
-                        <Button variant="contained" endIcon={<ShoppingCartOutlinedIcon />}>
-                            Comprar
-                        </Button>
-                    </Link>
-                    :
-                    <Button variant="contained" disabled>
-                        Sin stock disponible
-                    </Button>
-                }
-            </CardActions>
-            <CharactersAccordion
+    <CardActions>
+  {stock > 0 ? (
+         <Link href={{ pathname: "/Checkout/", query: `comic=${id}` }} passHref>
+      <Button variant="contained" endIcon={<ShoppingCartOutlinedIcon />}>
+        Comprar
+      </Button>
+    </Link>
+  ) : (
+    <Button variant="contained" disabled>
+      Sin stock disponible
+    </Button>
+  )}
+</CardActions>
+            <AccordionsCharacters
                 title='Personajes en cómic'
                 characters={characters}
             />
         </Card>
-
     );
 }

@@ -89,7 +89,7 @@ export default function HorizontalLinearStepper({ title, image, price }: Stepper
         } else {
           localStorage.setItem('purchase-data', JSON.stringify(data))
           router.push({
-            pathname: "/confirmacion-compra",
+            pathname: "/CompraConfirmacion",
           })
         }
       })

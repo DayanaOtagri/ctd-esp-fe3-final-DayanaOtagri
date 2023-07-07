@@ -1,33 +1,36 @@
-import * as React from 'react';
+import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 
-
-export interface PropsCheckoutCard {
-    title: string,
-    image: string,
-    id: number,
-    price: number,
+interface PropsCheckoutCard {
+  id: number;
+  title: string;
+  image: string;
+  price: number;
 }
 
-export default function CardCheckout({ title, image, price, id }: PropsCheckoutCard) {
-    return (
-        <Card sx={{ width: 350 }}>
-            <CardMedia
-                sx={{ height: 300 }}
-                image={image}
-                title={`${title} imagen`}
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    {title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '1rem' }}>
-                    <span>${price}</span>
-                </Typography>
-            </CardContent>
-        </Card>
-    );
-}
+const CheckoutCard: React.FC<PropsCheckoutCard> = ({ title, image, price }) => {
+  return (
+    <Card sx={{ width: 350 }}>
+      <CardMedia
+        component="img"
+        height="300"
+        image={image}
+        alt={`${title} imagen`}
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {title}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '1rem' }}>
+          ${price}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};
+
+
+export default CheckoutCard;

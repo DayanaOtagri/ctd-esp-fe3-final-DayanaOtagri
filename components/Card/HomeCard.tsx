@@ -26,7 +26,7 @@ export default function HomeCard({ title, image, id }: HomeProps) {
         <Button size="small" disabled>
           Comprar
         </Button>
-        <Link href={`/comics/${id}`} passHref>
+        <Link href={`/comic/${id}`} passHref>
           <Button size="small" component="a">
             Ver detalle
           </Button>

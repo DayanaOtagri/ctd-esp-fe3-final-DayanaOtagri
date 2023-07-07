@@ -29,8 +29,10 @@ export default function CharacterCard({ name, description, image, id }: PropsCha
                         : description
                     }
                 </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    id: {id}
+                </Typography>
             </CardContent>
         </Card>
-
     );
 }

@@ -1,26 +1,11 @@
-import { Pagination, Stack } from "@mui/material";
-import React, { ChangeEvent, FC,memo, useState } from "react";
+import * as React from 'react';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
-interface PropsComicsPagination {
-  numberOfPages: number;
-  setCurrentPage: (page: number) => void;
+export default function PaginationOutlined({ count, page, handleChange }: { count: number, page: number, handleChange: any }) {
+    return (
+        <Stack spacing={2} alignItems='center' margin={3} >
+            <Pagination page={page} count={count} variant="outlined" color="primary" onChange={handleChange} />
+        </Stack>
+    );
 }
-
-const ComicsPagination: FC<PropsComicsPagination> = ({
-  numberOfPages,
-  setCurrentPage,
-}) => {
-  const [page, setPage] = useState<number>(1);
-
-  const handlePagination = (event: ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-    setCurrentPage(value);
-  };
-return (
-    <Stack spacing={2} direction="row" justifyContent="center" margin="20px">
-      <Pagination count={numberOfPages} onChange={handlePagination} />
-    </Stack>
-  );
-};
-
-export default ComicsPagination;

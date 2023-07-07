@@ -4,7 +4,7 @@ import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { getComics } from 'dh-marvel/services/marvel/marvel.service';
 import { useEffect, useState } from 'react';
 import ResponsiveGrid from 'dh-marvel/components/Grid/Grid';
-import ComicsPagination from 'dh-marvel/components/Pagination/paginations';
+import PaginationOutlined from 'dh-marvel/components/Pagination/paginations';
 import LayoutGeneral from 'dh-marvel/components/layouts/layout-general';
 
 const INITIAL_OFFSET = 0;
@@ -36,15 +36,18 @@ const Index: NextPage<IndexProps> = ({ initialComics, initialTotal }) => {
   const [total, setTotal] = useState(initialTotal);
   const LIMIT = 12;
 
-  const handlePagination = (page: number) => {
+  const handlePagination = (event: React.ChangeEvent<unknown>, page: number) => {
     setCurrentPage(page);
   };
 
   useEffect(() => {
     const offset = LIMIT * (currentPage - 1);
     getComics(offset, LIMIT).then(response => {
-      setComics(response?.data?.results);
-      setTotal(response?.data?.total);
+      const comicsData = response?.data?.results || [];
+      const comicsTotal = response?.data?.total || 0;
+      
+      setComics(comicsData);
+      setTotal(comicsTotal);
     });
 
     localStorage.clear();
@@ -58,9 +61,13 @@ const Index: NextPage<IndexProps> = ({ initialComics, initialTotal }) => {
       </Head>
       <LayoutGeneral>
         <BodySingle title={"¡Hola disfruta Marvel Store!"}>
-          <ComicsPagination numberOfPages={Math.ceil(total / LIMIT)} setCurrentPage={handlePagination} />
-          <ResponsiveGrid data={comics} />
-          <ComicsPagination numberOfPages={Math.ceil(total / LIMIT)} setCurrentPage={handlePagination} />
+          {total && (
+            <>
+              <PaginationOutlined count={Math.ceil(total / LIMIT)} page={currentPage} handleChange={handlePagination} />
+              <ResponsiveGrid data={comics} />
+              <PaginationOutlined count={Math.ceil(total / LIMIT)} page={currentPage} handleChange={handlePagination} />
+            </>
+          )}
         </BodySingle>
       </LayoutGeneral>
     </>
