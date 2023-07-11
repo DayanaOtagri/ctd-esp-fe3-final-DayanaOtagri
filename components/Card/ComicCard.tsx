@@ -10,56 +10,56 @@ import Link from 'next/link';
 import AccordionsCharacters from '../Accordions/AccordionsCharacters';
 
 export interface ComicCardProps {
-    title: string,
-    description: string,
-    image: string,
-    id: number,
-    price: number,
-    oldPrice: number,
-    stock: number,
-    characters: any
+  title: string;
+  description: string;
+  image: string;
+  id: number;
+  price: number;
+  oldPrice: number;
+  stock: number;
+  characters: any[];
 }
 
-export default function ComicCard({ title, description, image, id, price, oldPrice, stock, characters }: ComicCardProps) {
-    return (
-        <Card sx={{ width: 400 }}>
-            <CardMedia
-                sx={{ height: 350 }}
-                image={image}
-                title={`${title} imagen`}
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    {title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '1rem' }}>
-                    <span style={{ textDecoration: 'line-through' }}>${oldPrice}</span>
-                    <span style={{ marginLeft: '0.5rem' }}>${price}</span>
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
-                    {!description
-                        ? "Sin descripción disponible"
-                        : description
-                    }
-                </Typography>
-            </CardContent>
-    <CardActions>
-  {stock > 0 ? (
-         <Link href={{ pathname: "/Checkout/", query: `comic=${id}` }} passHref>
-      <Button variant="contained" endIcon={<ShoppingCartOutlinedIcon />}>
-        Comprar
-      </Button>
-    </Link>
-  ) : (
-    <Button variant="contained" disabled>
-      Sin stock disponible
-    </Button>
-  )}
-</CardActions>
-            <AccordionsCharacters
-                title='Personajes en cómic'
-                characters={characters}
-            />
-        </Card>
-    );
+export default function ComicCard({
+  title,
+  description,
+  image,
+  id,
+  price,
+  oldPrice,
+  stock,
+  characters,
+}: ComicCardProps) {
+  return (
+    <Card sx={{ width: 400 }}>
+      <CardMedia sx={{ height: 350 }} image={image} title={`${title} imagen`} />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {title}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '1rem' }}>
+          <span style={{ textDecoration: 'line-through' }}>${oldPrice}</span>
+          <span style={{ marginLeft: '0.5rem' }}>${price}</span>
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          {!description ? 'Sin descripción disponible' : description}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        {stock > 0 ? (
+          <Link href={`/Checkout?comic=${id}`} passHref>
+            <Button variant="contained" endIcon={<ShoppingCartOutlinedIcon />}>
+              Comprar
+            </Button>
+          </Link>
+        ) : (
+          <Button variant="contained" disabled>
+            Sin stock disponible
+          </Button>
+        )}
+      </CardActions>
+      <AccordionsCharacters title="Personajes en cómic" characters={characters} />
+    </Card>
+  );
 }
+

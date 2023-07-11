@@ -17,6 +17,7 @@ function Checkout() {
     if (comic) {
       const id = parseInt(comic as string);
       getComic(id).then((data: any) => {
+        console.log(data)
         setComicData(data);
       });
     } else {

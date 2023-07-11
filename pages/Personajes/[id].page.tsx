@@ -40,7 +40,7 @@ function CharacterDetails({ character }: { character: any }) {
         <meta name="description" content={`${character?.name}: Detalle personaje de cómic`} />
       </Head>
       <LayoutGeneral>
-        <Box sx={{ margin: '1rem', width: '400' }} >
+        <Box sx={{ margin: '1rem', width: '400px' }} >
           <BodySingle title='Detalle personaje'>
             <CharacterCard
               name={character?.name}
@@ -49,10 +49,11 @@ function CharacterDetails({ character }: { character: any }) {
               id={character?.id}
             />
           </BodySingle>
-        </Box >
+        </Box>
       </LayoutGeneral>
     </>
-  )
+  );
 }
 
 export default CharacterDetails;
+
